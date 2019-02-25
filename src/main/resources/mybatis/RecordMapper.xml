@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.lv.record.dao.RecordDao">
+    <resultMap id="resultMap" type="me.lv.record.entity.RecordDO">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="record_id" property="recordId" jdbcType="INTEGER" />
+        <result column="region" property="region" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+        <result column="address" property="address" jdbcType="VARCHAR" />
+        <result column="amount" property="amount" jdbcType="DECIMAL" />
+        <result column="picture" property="picture" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="base_column">
+        id,record_id,region,title,name,phone,address,amount,picture,create_time,update_time
+    </sql>
+
+    <select id="listRecords" resultMap="resultMap" parameterType="me.lv.record.entity.dto.SearchDTO">
+        <bind name="pattern" value="'%' + title + '%'" />
+        SELECT
+        <include refid="base_column" />
+        from record
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="title != null and title != ''">
+                and title like #{pattern}
+            </if>
+            <if test="region != null and region != ''">
+                and region = #{region}
+            </if>
+        </trim>
+    </select>
+
+    <insert id="insertRecord" parameterType="me.lv.record.entity.dto.RecordDTO">
+        INSERT INTO record (record_id,region,title,name,phone,address,amount,picture)
+        VALUES (#{recordId},#{region},#{title},#{name},#{phone},#{address},#{amount},#{picture})
+    </insert>
+
+</mapper>

@@ -1,19 +1,32 @@
-package me.lv.record.entity.dto;
+package me.lv.record.entity;
+
+import java.util.Date;
 
 /**
  * @author lv
  */
-public class RecordDTO {
+public class RecordDO {
+    private Integer id;
     private Integer recordId;
-    private String region;
+    private Integer region;
     private String title;
     private String name;
     private String phone;
     private String address;
     private Double amount;
     private String picture;
+    private Date createTime;
+    private Date updateTime;
 
-    public RecordDTO() {
+    public RecordDO() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getRecordId() {
@@ -24,11 +37,11 @@ public class RecordDTO {
         this.recordId = recordId;
     }
 
-    public String getRegion() {
+    public Integer getRegion() {
         return region;
     }
 
-    public void setRegion(String region) {
+    public void setRegion(Integer region) {
         this.region = region;
     }
 
@@ -80,10 +93,27 @@ public class RecordDTO {
         this.picture = picture;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
     @Override
     public String toString() {
-        return "RecordDTO{" +
-                "recordId=" + recordId +
+        return "RecordDO{" +
+                "id=" + id +
+                ", recordId=" + recordId +
                 ", region='" + region + '\'' +
                 ", title='" + title + '\'' +
                 ", name='" + name + '\'' +
@@ -91,6 +121,8 @@ public class RecordDTO {
                 ", address='" + address + '\'' +
                 ", amount=" + amount +
                 ", picture='" + picture + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }

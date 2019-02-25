@@ -4,73 +4,117 @@ var vm = new Vue({
     el: "#app",
     data: function () {
         return {
-            title: "抬头",
-            message: "",
-            selected: "",
+            dialogVisible: false,
+            dialogFormVisible: false,
             options: [
                 { id: "", name: "请选择" }
             ],
-            tableArr: [
-                { id: 1, title: "text", name: "name", phone: "phone" },
-                { id: 2, title: "text2", name: "name2", phone: "phone2" }
-            ]
+            tableData: [{
+                recordId: '1',
+                region: '',
+                title: '',
+                name: '王小虎',
+                phone: '',
+                address: '上海市普陀区金沙江路 1518 弄',
+                amount: '',
+                picture: ''
+            }, {
+                recordId: '2',
+                region: '',
+                title: '',
+                name: '王小虎',
+                phone: '',
+                address: '上海市普陀区金沙江路 1517 弄',
+                amount: '',
+                picture: ''
+            }],
+            form: {
+                title: '',
+                region: ''
+            },
+            add_form: {
+                recordId: '',
+                region: '',
+                title: '',
+                name: '',
+                phone: '',
+                address: '',
+                amount: 0,
+                picture: ''
+            },
+            pictures: [],
+            formLabelWidth: '120px'
         }
     },
     mounted: function () {
         vis = this;
         vis.getArea();
+        vis.getTableData();
     },
     methods: {
         // 获取地区
-        getArea: function () {
-            $.ajax({
-                type: "get",
-                url: "http://localhost:8080/listAreas",
-                data: {},
-                cache: false,//不读缓存
-                dataType: 'json',
-                beforeSend: function (XMLHttpRequest) {
-                    //ShowLoading();
-                },
-                success: function (data, textStatus) {
-                    if(data.code == 200) {
-                        data.results.forEach(element => {
+        getArea() {
+            axios.get('http://localhost:8080/listAreas')
+                .then(response => {
+                    if (response.data.code == 200) {
+                        response.data.results.forEach(element => {
                             vis.options.push(element);
                         });
                     }
-                },
-                complete: function (XMLHttpRequest, textStatus) {
-                    //HideLoading();
-                },
-                error: function () {
-                    //请求出错处理
-                }
+                });
+        },
+        // 获取表格数据
+        getTableData() {
+            axios.post('http://localhost:8080/listRecords', vis.form)
+                .then(response => {
+                    if (response.data.code == 200) {
+                        vis.tableData = response.data.results;
+                    }
+                });
+        },
+        // 查看
+        handleClick(picture) {
+            picture.split(',').forEach(element => {
+                var pic = { "picture": element };
+                vis.pictures.push(pic);
             });
         },
-        // 获取菜单
-        getTableData: function () {
-            // $.ajax({
-            //     type: "get",
-            //     url: "",
-            //     data: {},
-            //     cache:false,//不读缓存
-            //     dataType:'json',
-            //     beforeSend: function(XMLHttpRequest){
-            //         //ShowLoading();
-            //     },
-            //     success: function(data, textStatus){
-
-            //     },
-            //     complete: function(XMLHttpRequest, textStatus){
-            //         //HideLoading();
-            //     },
-            //     error: function(){
-            //         //请求出错处理
-            //     }
-            // });
+        // 新增
+        insertRecord() {
+            var reg = new RegExp("^[0-9]+(.[0-9]{1,3})?$");
+            if (!reg.test(vis.add_form.amount)) {
+                vis.warn();
+            }
+            axios.post('http://localhost:8080/insertRecord', vis.add_form)
+                .then(response => {
+                    if (response.data.code == 200) {
+                        vis.success();
+                    }
+                });
+            vis.dialogFormVisible = false;
         },
+        handleClose(done) {
+            this.$confirm('确认关闭？')
+                .then(_ => {
+                    done();
+                })
+                .catch(_ => { });
+        },
+        warn() {
+            this.$notify({
+                title: '警告',
+                message: '金额请输入数字',
+                type: 'warning'
+            });
+        },
+        success() {
+            this.$notify({
+                title: '成功',
+                message: '新增成功',
+                type: 'success'
+            });
+        }
     },
-
     filters: {
         cutstr: function (str, aount) {
             var str_length = 0;
