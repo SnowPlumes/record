@@ -18,7 +18,7 @@
         <el-input v-model="form.title" placeholder="请输入抬头" style="width: 217px;"></el-input>
       </el-form-item>
       <el-form-item label="地区">
-        <el-select v-model="form.region" placeholder="请选择地区">
+        <el-select v-model="form.region" filterable placeholder="请选择地区">
           <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id">
         </el-select>
       </el-form-item>
@@ -107,10 +107,6 @@
         <el-button type="primary" icon="el-icon-arrow-left" style="margin-right: 6px;">上一页</el-button>
         <el-button type="primary">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
       </el-button-group>
-    </template>
-    <template>
-      <el-button :plain="true" @click="success">成功</el-button>
-      <!-- <el-button :plain="true" @click="warn">警告</el-button> -->
     </template>
   </div>
 </body>

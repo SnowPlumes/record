@@ -89,9 +89,9 @@ var vm = new Vue({
                 .then(response => {
                     if (response.data.code == 200) {
                         vis.success();
+                        vis.dialogFormVisible = false;
                     }
                 });
-            vis.dialogFormVisible = false;
         },
         handleClose(done) {
             this.$confirm('确认关闭？')
