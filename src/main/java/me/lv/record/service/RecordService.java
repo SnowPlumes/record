@@ -1,5 +1,6 @@
 package me.lv.record.service;
 
+import me.lv.record.entity.dto.InsertRecodeDTO;
 import me.lv.record.entity.dto.RecordDTO;
 import me.lv.record.entity.dto.SearchDTO;
 
@@ -23,5 +24,5 @@ public interface RecordService {
      *
      * @param recordDTO
      */
-    void insertRecord(RecordDTO recordDTO);
+    void insertRecord(InsertRecodeDTO recordDTO);
 }

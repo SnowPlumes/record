@@ -18,13 +18,13 @@
         <el-input v-model="form.title" placeholder="请输入抬头" style="width: 217px;"></el-input>
       </el-form-item>
       <el-form-item label="地区">
-        <el-select v-model="form.region" filterable placeholder="请选择地区">
-          <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id">
+        <el-select v-model="form.areaCode" filterable placeholder="请选择地区">
+          <el-option v-for="item in options" :key="item.areaCode" :label="item.areaName" :value="item.areaCode">
         </el-select>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="getTableData">搜索</el-button>
-        <el-button class="edit" type="primary" icon="el-icon-edit" circle @click="dialogFormVisible = true"
+        <el-button class="edit" type="primary" icon="el-icon-edit" circle @click="showForm"
           style="margin-right: 36px;"></el-button>
       </el-form-item>
     </el-form>
@@ -36,8 +36,8 @@
             <el-input v-model="add_form.recordId" autocomplete="off" style="width: 217px;"></el-input>
           </el-form-item>
           <el-form-item label="地区" :label-width="formLabelWidth">
-            <el-select v-model="add_form.region" placeholder="请选择活动区域">
-              <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id">
+            <el-select v-model="add_form.areaCode" filterable placeholder="请选择活动区域">
+              <el-option v-for="item in options" :key="item.areaCode" :label="item.areaName" :value="item.areaCode">
             </el-select>
           </el-form-item>
           <el-form-item label="抬头" :label-width="formLabelWidth">
@@ -56,7 +56,17 @@
             <el-input v-model="add_form.amount" autocomplete="off" style="width: 217px;"></el-input>
           </el-form-item>
           <el-form-item label="图片" :label-width="formLabelWidth">
-            <el-input v-model="add_form.picture" autocomplete="off" style="width: 217px;"></el-input>
+            <!-- <el-input v-model="add_form.picture" autocomplete="off" style="width: 217px;"></el-input> -->
+            <el-upload
+              class="upload-demo"
+              action="http://127.0.0.1:8080/upload/uploadPicture"
+              :on-remove="handleRemove"
+              :on-success="uploadSuccess"
+              :file-list="fileList"
+              list-type="picture">
+              <el-button size="small" type="primary">点击上传</el-button>
+              <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+            </el-upload>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -69,7 +79,7 @@
       <el-table :data="tableData" border stripe style="width: 100%">
         <el-table-column prop="recordId" label="序号" sortable width="75">
         </el-table-column>
-        <el-table-column prop="region" label="地区">
+        <el-table-column prop="areaName" label="地区">
         </el-table-column>
         <el-table-column prop="title" label="抬头">
         </el-table-column>
@@ -83,10 +93,8 @@
         </el-table-column>
         <el-table-column label="图片">
           <template slot-scope="scope">
-            <el-button type="text" @click="dialogVisible = true">
-              <img :src="scope.row.picture.split(',')[0]" width="30" height="20"
-                @click="handleClick(scope.row.picture)">
-            </el-button>
+            <el-button @click="handleClick(scope.row.picture)" type="text" size="small">查看</el-button>
+            <!-- <el-button type="text" size="small">编辑</el-button> -->
             <el-dialog title="图片" :visible.sync="dialogVisible" width="65%" :before-close="handleClose">
               <template>
                 <el-carousel :interval="4000" type="card" height="200px">

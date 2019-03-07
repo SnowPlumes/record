@@ -8,5 +8,10 @@ import java.util.List;
  * @author lv
  */
 public interface AreaService {
-    public List<AreaDO> listAreas();
+    /**
+     * 获取地区
+     *
+     * @return
+     */
+    List<AreaDO> listAreas();
 }

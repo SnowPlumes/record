@@ -1,11 +1,11 @@
 package me.lv.record.entity.dto;
 
 /**
- * @author Elv
+ * @author lv
  */
 public class SearchDTO {
     private String title;
-    private String region;
+    private String areaCode;
 
     public SearchDTO() {
     }
@@ -18,19 +18,19 @@ public class SearchDTO {
         this.title = title;
     }
 
-    public String getRegion() {
-        return region;
+    public String getAreaCode() {
+        return areaCode;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
+    public void setAreaCode(String areaCode) {
+        this.areaCode = areaCode;
     }
 
     @Override
     public String toString() {
         return "SearchDTO{" +
                 "title='" + title + '\'' +
-                ", region='" + region + '\'' +
+                ", areaCode='" + areaCode + '\'' +
                 '}';
     }
 }

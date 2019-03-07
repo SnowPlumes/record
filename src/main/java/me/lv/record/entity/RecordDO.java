@@ -8,7 +8,7 @@ import java.util.Date;
 public class RecordDO {
     private Integer id;
     private Integer recordId;
-    private Integer region;
+    private Integer areaCode;
     private String title;
     private String name;
     private String phone;
@@ -37,12 +37,12 @@ public class RecordDO {
         this.recordId = recordId;
     }
 
-    public Integer getRegion() {
-        return region;
+    public Integer getAreaCode() {
+        return areaCode;
     }
 
-    public void setRegion(Integer region) {
-        this.region = region;
+    public void setAreaCode(Integer areaCode) {
+        this.areaCode = areaCode;
     }
 
     public String getTitle() {
@@ -114,7 +114,7 @@ public class RecordDO {
         return "RecordDO{" +
                 "id=" + id +
                 ", recordId=" + recordId +
-                ", region='" + region + '\'' +
+                ", areaCode=" + areaCode +
                 ", title='" + title + '\'' +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +

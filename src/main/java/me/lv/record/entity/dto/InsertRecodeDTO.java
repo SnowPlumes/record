@@ -1,11 +1,12 @@
 package me.lv.record.entity.dto;
 
+
 /**
  * @author lv
  */
-public class RecordDTO {
+public class InsertRecodeDTO {
     private Integer recordId;
-    private String areaName;
+    private String areaCode;
     private String title;
     private String name;
     private String phone;
@@ -13,7 +14,7 @@ public class RecordDTO {
     private Double amount;
     private String picture;
 
-    public RecordDTO() {
+    public InsertRecodeDTO() {
     }
 
     public Integer getRecordId() {
@@ -24,12 +25,12 @@ public class RecordDTO {
         this.recordId = recordId;
     }
 
-    public String getAreaName() {
-        return areaName;
+    public String getAreaCode() {
+        return areaCode;
     }
 
-    public void setAreaName(String areaName) {
-        this.areaName = areaName;
+    public void setAreaCode(String areaCode) {
+        this.areaCode = areaCode;
     }
 
     public String getTitle() {
@@ -82,9 +83,9 @@ public class RecordDTO {
 
     @Override
     public String toString() {
-        return "RecordDTO{" +
+        return "insertRecodeDTO{" +
                 "recordId=" + recordId +
-                ", areaName='" + areaName + '\'' +
+                ", areaCode='" + areaCode + '\'' +
                 ", title='" + title + '\'' +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +

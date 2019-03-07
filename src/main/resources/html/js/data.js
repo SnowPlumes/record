@@ -7,34 +7,16 @@ var vm = new Vue({
             dialogVisible: false,
             dialogFormVisible: false,
             options: [
-                { id: "", name: "请选择" }
+                { areaCode: "", areaName: "请选择" }
             ],
-            tableData: [{
-                recordId: '1',
-                region: '',
-                title: '',
-                name: '王小虎',
-                phone: '',
-                address: '上海市普陀区金沙江路 1518 弄',
-                amount: '',
-                picture: ''
-            }, {
-                recordId: '2',
-                region: '',
-                title: '',
-                name: '王小虎',
-                phone: '',
-                address: '上海市普陀区金沙江路 1517 弄',
-                amount: '',
-                picture: ''
-            }],
+            tableData: [],
             form: {
                 title: '',
-                region: ''
+                areaCode: ''
             },
             add_form: {
                 recordId: '',
-                region: '',
+                areaCode: '',
                 title: '',
                 name: '',
                 phone: '',
@@ -42,6 +24,7 @@ var vm = new Vue({
                 amount: 0,
                 picture: ''
             },
+            fileList: [],
             pictures: [],
             formLabelWidth: '120px'
         }
@@ -74,9 +57,13 @@ var vm = new Vue({
         },
         // 查看
         handleClick(picture) {
+            vis.pictures = [];
+            vis.dialogVisible = true;
             picture.split(',').forEach(element => {
-                var pic = { "picture": element };
-                vis.pictures.push(pic);
+                if(element != '') {
+                    var pic = { "picture": "../static/images/upload"+ element };
+                    vis.pictures.push(pic);
+                }
             });
         },
         // 新增
@@ -90,8 +77,32 @@ var vm = new Vue({
                     if (response.data.code == 200) {
                         vis.success();
                         vis.dialogFormVisible = false;
+                        vis.getTableData();
                     }
                 });
+        },
+        handleRemove(file, fileList) {
+            var pictureUrl = "";
+            fileList.forEach(file => {
+                if (file.response == 200) {
+                    pictureUrl += file.response.results + ",";
+                }
+            });
+            vis.add_form.picture = pictureUrl;
+        },
+        uploadSuccess(response, file, fileList) {
+            let pictureUrl = "";
+            fileList.forEach(file => {
+                if (file.response.code == '200') {
+                    pictureUrl += file.response.results + ",";
+                }
+            });
+            vis.add_form.picture = pictureUrl;
+        },
+        showForm() {
+            vis.fileList = [];
+            vis.add_form = {};
+            vis.dialogFormVisible = true;
         },
         handleClose(done) {
             this.$confirm('确认关闭？')

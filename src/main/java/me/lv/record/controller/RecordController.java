@@ -1,8 +1,7 @@
 package me.lv.record.controller;
 
-import me.lv.record.entity.AreaDO;
+import me.lv.record.entity.dto.InsertRecodeDTO;
 import me.lv.record.entity.dto.JsonResponse;
-import me.lv.record.entity.dto.RecordDTO;
 import me.lv.record.entity.dto.SearchDTO;
 import me.lv.record.service.AreaService;
 import me.lv.record.service.RecordService;
@@ -10,9 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
 
 /**
  * @author lv
@@ -40,7 +36,7 @@ public class RecordController {
     }
 
     @PostMapping("insertRecord")
-    public JsonResponse insertRecord(@RequestBody RecordDTO recordDTO) {
+    public JsonResponse insertRecord(@RequestBody InsertRecodeDTO recordDTO) {
         recordService.insertRecord(recordDTO);
         return JsonResponse.success();
     }

@@ -1,6 +1,6 @@
 package me.lv.record.dao;
 
-import me.lv.record.entity.RecordDO;
+import me.lv.record.entity.dto.InsertRecodeDTO;
 import me.lv.record.entity.dto.RecordDTO;
 import me.lv.record.entity.dto.SearchDTO;
 
@@ -17,12 +17,12 @@ public interface RecordDao {
      * @param searchDTO
      * @return
      */
-    List<RecordDO> listRecords(SearchDTO searchDTO);
+    List<RecordDTO> listRecords(SearchDTO searchDTO);
 
     /**
      * 新增记录
      *
      * @param recordDTO
      */
-    void insertRecord(RecordDTO recordDTO);
+    void insertRecord(InsertRecodeDTO recordDTO);
 }

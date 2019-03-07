@@ -5,11 +5,10 @@ package me.lv.record.entity;
  */
 public class AreaDO {
     private String id;
-    private String name;
+    private String areaCode;
+    private String areaName;
 
-    public AreaDO(String id, String name) {
-        this.id = id;
-        this.name = name;
+    public AreaDO() {
     }
 
     public String getId() {
@@ -20,19 +19,28 @@ public class AreaDO {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getAreaCode() {
+        return areaCode;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAreaCode(String areaCode) {
+        this.areaCode = areaCode;
+    }
+
+    public String getAreaName() {
+        return areaName;
+    }
+
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
     }
 
     @Override
     public String toString() {
         return "AreaDO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "id='" + id + '\'' +
+                ", areaCode='" + areaCode + '\'' +
+                ", areaName='" + areaName + '\'' +
                 '}';
     }
 }

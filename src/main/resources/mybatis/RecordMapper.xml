@@ -16,27 +16,28 @@
     </resultMap>
 
     <sql id="base_column">
-        id,record_id,region,title,name,phone,address,amount,picture,create_time,update_time
+        id,record_id,area_code,title,name,phone,address,amount,picture,create_time,update_time
     </sql>
 
-    <select id="listRecords" resultMap="resultMap" parameterType="me.lv.record.entity.dto.SearchDTO">
+    <select id="listRecords" resultType="me.lv.record.entity.dto.RecordDTO" parameterType="me.lv.record.entity.dto.SearchDTO">
         <bind name="pattern" value="'%' + title + '%'" />
         SELECT
-        <include refid="base_column" />
-        from record
+        r.record_id as recordId,
+        (SELECT area_name from area a where a.area_code = r.area_code) as areaName,r.title,r.name,r.phone,r.address,r.amount,r.picture
+        from record r
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             <if test="title != null and title != ''">
-                and title like #{pattern}
+                and r.title like #{pattern}
             </if>
-            <if test="region != null and region != ''">
-                and region = #{region}
+            <if test="areaCode != null and areaCode != ''">
+                and r.area_code = #{areaCode}
             </if>
         </trim>
     </select>
 
-    <insert id="insertRecord" parameterType="me.lv.record.entity.dto.RecordDTO">
-        INSERT INTO record (record_id,region,title,name,phone,address,amount,picture)
-        VALUES (#{recordId},#{region},#{title},#{name},#{phone},#{address},#{amount},#{picture})
+    <insert id="insertRecord" parameterType="me.lv.record.entity.dto.InsertRecodeDTO">
+        INSERT INTO record (record_id,area_code,title,name,phone,address,amount,picture)
+        VALUES (#{recordId},#{areaCode},#{title},#{name},#{phone},#{address},#{amount},#{picture})
     </insert>
 
 </mapper>

@@ -67,10 +67,10 @@ public class ExcelUtil {
         ExcelUtil.simpleDateFormat = simpleDateFormat;
     }
 
-    public static List<AreaDO> importExcel(File file){
+    public static void importExcel(File file){
         logger.debug(">>>>>> import excel start ...");
         if(checkExcelVaild(file)) {
-            return null;
+            return;
         }
         //装载流
         Workbook workbook = null;
@@ -80,8 +80,6 @@ public class ExcelUtil {
             e.printStackTrace();
         }
 
-        List<AreaDO> areaDOS = new ArrayList<>();
-        AreaDO areaDO;
         // 循环工作表Sheet
         for (int numSheet = 0; numSheet < workbook.getNumberOfSheets(); numSheet++) {
             Sheet sheet = workbook.getSheetAt(numSheet);
@@ -92,13 +90,11 @@ public class ExcelUtil {
             for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
                 Row row = sheet.getRow(rowNum);
                 if (row != null) {
-                    areaDO = new AreaDO(getValue(row.getCell(0)), getValue(row.getCell(1)));
-                    areaDOS.add(areaDO);
+
                 }
             }
         }
         logger.debug(">>>>>> import excel end ...");
-        return areaDOS;
     }
 
     /**
