@@ -80,6 +80,7 @@ let vm = new Vue({
             let reg = new RegExp("^[0-9]+(.[0-9]{1,3})?$");
             if (!reg.test(vis.add_form.amount)) {
                 vis.warn('金额请输入数字');
+                return;
             }
             axios.post('http://localhost:8080/insertRecord', vis.add_form)
                 .then(response => {
@@ -99,6 +100,7 @@ let vm = new Vue({
             let reg = new RegExp("^[0-9]+(.[0-9]{1,3})?$");
             if (!reg.test(vis.add_form.amount)) {
                 vis.warn('金额请输入数字');
+                return;
             }
             axios.post('http://localhost:8080/updateRecord', vis.add_form)
                 .then(response => {
