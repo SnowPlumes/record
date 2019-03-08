@@ -70,7 +70,7 @@ let vm = new Vue({
             vis.dialogVisible = true;
             picture.split(',').forEach(element => {
                 if (element != '') {
-                    let pic = { "picture": "../static/images/upload" + element };
+                    let pic = { "picture": '../static/images/upload' + element};
                     vis.pictures.push(pic);
                 }
             });
@@ -123,7 +123,6 @@ let vm = new Vue({
                         recordId: recordId
                     }
                 }).then(response => {
-                    console.log(response);
                     if (response.data.code == 200) {
                         this.$message({
                             type: 'success',
@@ -151,8 +150,12 @@ let vm = new Vue({
         uploadSuccess(response, file, fileList) {
             let pictureUrl = "";
             fileList.forEach(file => {
-                if (file.response.code == '200') {
-                    pictureUrl += file.response.results + ",";
+                if ("response" in file) {
+                    if (file.response.code == '200') {
+                        pictureUrl += file.response.results + ",";
+                    }
+                } else {
+                    pictureUrl += file.url.split('upload')[1] + ",";
                 }
             });
             vis.add_form.picture = pictureUrl;

@@ -1,5 +1,7 @@
 package me.lv.record.entity.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
@@ -8,6 +10,7 @@ import java.util.Date;
 public class UpdateRecordDTO extends BaseRecordDTO {
     private Integer id;
     private String areaCode;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date effectiveTime;
 
     public UpdateRecordDTO() {

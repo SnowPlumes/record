@@ -34,7 +34,7 @@
         r.id as id,
         r.area_code as areaCode,
         r.record_id as recordId,
-        (SELECT area_name from area a where a.area_code = r.area_code) as areaName,r.title,r.name,r.phone,r.address,r.amount,r.picture,r.effective_time as effectiveTime
+        (SELECT area_name from area a where a.area_code = r.area_code) as areaName,r.title,r.name,r.phone,r.address,r.amount,r.picture,DATE_FORMAT(r.effective_time, '%Y-%m-%d %h:%m:%s') as effectiveTime
         from record r
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             <if test="title != null and title != ''">
