@@ -44,6 +44,17 @@ public class JsonResponse {
         return json;
     }
 
+    public static JsonResponse fail() {
+        return fail(null);
+    }
+
+    public static JsonResponse fail(String msg) {
+        JsonResponse json = new JsonResponse();
+        json.setCode(ResponseStatus.FAIL);
+        json.setMsg(msg);
+        return json;
+    }
+
     public static JsonResponse success() {
         return success(null);
     }

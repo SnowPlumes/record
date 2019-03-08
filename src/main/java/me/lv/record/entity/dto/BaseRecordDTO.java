@@ -1,33 +1,19 @@
-package me.lv.record.entity;
-
-import java.util.Date;
+package me.lv.record.entity.dto;
 
 /**
  * @author lv
  */
-public class RecordDO {
-    private Integer id;
+public class BaseRecordDTO {
     private Integer recordId;
-    private Integer areaCode;
     private String title;
     private String name;
     private String phone;
     private String address;
     private Double amount;
     private String picture;
-    private Date effectiveTime;
-    private Date createTime;
-    private Date updateTime;
 
-    public RecordDO() {
-    }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public BaseRecordDTO() {
     }
 
     public Integer getRecordId() {
@@ -36,14 +22,6 @@ public class RecordDO {
 
     public void setRecordId(Integer recordId) {
         this.recordId = recordId;
-    }
-
-    public Integer getAreaCode() {
-        return areaCode;
-    }
-
-    public void setAreaCode(Integer areaCode) {
-        this.areaCode = areaCode;
     }
 
     public String getTitle() {
@@ -94,45 +72,16 @@ public class RecordDO {
         this.picture = picture;
     }
 
-    public Date getEffectiveTime() {
-        return effectiveTime;
-    }
-
-    public void setEffectiveTime(Date effectiveTime) {
-        this.effectiveTime = effectiveTime;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
     @Override
     public String toString() {
-        return "RecordDO{" +
-                "id=" + id +
-                ", recordId=" + recordId +
-                ", areaCode=" + areaCode +
+        return "BaseRecordDTO{" +
+                "recordId=" + recordId +
                 ", title='" + title + '\'' +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
                 ", amount=" + amount +
                 ", picture='" + picture + '\'' +
-                ", effectiveTime=" + effectiveTime +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
                 '}';
     }
 }

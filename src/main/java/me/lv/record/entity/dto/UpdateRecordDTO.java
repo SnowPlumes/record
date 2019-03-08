@@ -1,15 +1,16 @@
 package me.lv.record.entity.dto;
 
+import java.util.Date;
+
 /**
  * @author lv
  */
-public class RecordDTO extends BaseRecordDTO {
+public class UpdateRecordDTO extends BaseRecordDTO {
     private Integer id;
     private String areaCode;
-    private String areaName;
-    private String effectiveTime;
+    private Date effectiveTime;
 
-    public RecordDTO() {
+    public UpdateRecordDTO() {
     }
 
     public Integer getId() {
@@ -28,29 +29,20 @@ public class RecordDTO extends BaseRecordDTO {
         this.areaCode = areaCode;
     }
 
-    public String getAreaName() {
-        return areaName;
-    }
-
-    public void setAreaName(String areaName) {
-        this.areaName = areaName;
-    }
-
-    public String getEffectiveTime() {
+    public Date getEffectiveTime() {
         return effectiveTime;
     }
 
-    public void setEffectiveTime(String effectiveTime) {
+    public void setEffectiveTime(Date effectiveTime) {
         this.effectiveTime = effectiveTime;
     }
 
     @Override
     public String toString() {
-        return "RecordDTO{" +
+        return "UpdateRecordDTO{" +
                 "id=" + id +
                 ", areaCode='" + areaCode + '\'' +
-                ", areaName='" + areaName + '\'' +
-                ", effectiveTime='" + effectiveTime + '\'' +
+                ", effectiveTime=" + effectiveTime +
                 '}';
     }
 }

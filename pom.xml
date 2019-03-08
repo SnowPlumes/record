@@ -85,7 +85,40 @@
         </dependency>
     </dependencies>
 
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<active>dev</active>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<active>prod</active>
+			</properties>
+		</profile>
+	</profiles>
+
 	<build>
+		<resources>
+			<!-- 所有环境配置文件过滤 -->
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>profile/**/*</exclude>
+					<exclude>profile/test/*</exclude>
+					<exclude>profile/prod/*</exclude>
+					<exclude>profile/dev/*</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources/profile/${active}</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

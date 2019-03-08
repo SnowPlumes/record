@@ -16,14 +16,25 @@
     </resultMap>
 
     <sql id="base_column">
-        id,record_id,area_code,title,name,phone,address,amount,picture,create_time,update_time
+        id,record_id,area_code,title,name,phone,address,amount,picture,effective_time,create_time,update_time
     </sql>
+
+    <select id="getRecordByTitle" parameterType="String" resultMap="resultMap">
+        SELECT
+          <include refid="base_column"/>
+        FROM
+          record
+        WHERE
+          title = #{title}
+    </select>
 
     <select id="listRecords" resultType="me.lv.record.entity.dto.RecordDTO" parameterType="me.lv.record.entity.dto.SearchDTO">
         <bind name="pattern" value="'%' + title + '%'" />
         SELECT
+        r.id as id,
+        r.area_code as areaCode,
         r.record_id as recordId,
-        (SELECT area_name from area a where a.area_code = r.area_code) as areaName,r.title,r.name,r.phone,r.address,r.amount,r.picture
+        (SELECT area_name from area a where a.area_code = r.area_code) as areaName,r.title,r.name,r.phone,r.address,r.amount,r.picture,r.effective_time as effectiveTime
         from record r
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             <if test="title != null and title != ''">
@@ -36,8 +47,29 @@
     </select>
 
     <insert id="insertRecord" parameterType="me.lv.record.entity.dto.InsertRecodeDTO">
-        INSERT INTO record (record_id,area_code,title,name,phone,address,amount,picture)
-        VALUES (#{recordId},#{areaCode},#{title},#{name},#{phone},#{address},#{amount},#{picture})
+        INSERT INTO record (record_id,area_code,title,name,phone,address,amount,picture,effective_time)
+        VALUES (#{recordId},#{areaCode},#{title},#{name},#{phone},#{address},#{amount},#{picture},#{effectiveTime})
     </insert>
+    
+    <update id="updateRecord" parameterType="me.lv.record.entity.dto.UpdateRecordDTO">
+        UPDATE
+          record
+        SET
+          record_id = #{recordId},
+          area_code = #{areaCode},
+          title = #{title},
+          name = #{name},
+          phone = #{phone},
+          address = #{address},
+          amount = #{amount},
+          picture = #{picture},
+          effective_time = #{effectiveTime}
+        WHERE
+          id = #{id}
+    </update>
+
+    <delete id="deleteRecord" parameterType="Integer">
+        delete from record where id = #{id}
+    </delete>
 
 </mapper>

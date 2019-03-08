@@ -17,6 +17,18 @@
   float:right;
 }
 .el-button-group{
-  margin-top: 9px;
+  margin-top: .65rem;
   float:right;
+}
+.select {
+  width: 100%;
+}
+.el-icon-delete{
+  float: right;
+  margin-top: .56rem;
+  margin-right: .9rem;
+}
+.block{
+  float: right;
+  margin-right: 3rem;
 }

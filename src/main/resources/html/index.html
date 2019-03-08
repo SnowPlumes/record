@@ -15,55 +15,54 @@
   <div id="app">
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="抬头">
-        <el-input v-model="form.title" placeholder="请输入抬头" style="width: 217px;"></el-input>
+        <el-input v-model="form.title" placeholder="请输入抬头"></el-input>
       </el-form-item>
       <el-form-item label="地区">
-        <el-select v-model="form.areaCode" filterable placeholder="请选择地区">
+        <el-select class="select" v-model="form.areaCode" filterable placeholder="请选择地区">
           <el-option v-for="item in options" :key="item.areaCode" :label="item.areaName" :value="item.areaCode">
         </el-select>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="getTableData">搜索</el-button>
-        <el-button class="edit" type="primary" icon="el-icon-edit" circle @click="showForm"
-          style="margin-right: 36px;"></el-button>
+        <el-button class="edit" type="primary" icon="el-icon-edit" circle @click="showForm" style="margin-right: 36px;">
+        </el-button>
       </el-form-item>
     </el-form>
     <!-- 新增弹窗 -->
     <template>
-      <el-dialog title="新增记录" :visible.sync="dialogFormVisible">
+      <el-dialog :title="title" :visible.sync="dialogFormVisible">
         <el-form :model="add_form">
           <el-form-item label="序号" :label-width="formLabelWidth">
-            <el-input v-model="add_form.recordId" autocomplete="off" style="width: 217px;"></el-input>
+            <el-input v-model="add_form.recordId" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="地区" :label-width="formLabelWidth">
-            <el-select v-model="add_form.areaCode" filterable placeholder="请选择活动区域">
+            <el-select class="select" v-model="add_form.areaCode" filterable placeholder="请选择活动区域">
               <el-option v-for="item in options" :key="item.areaCode" :label="item.areaName" :value="item.areaCode">
             </el-select>
           </el-form-item>
           <el-form-item label="抬头" :label-width="formLabelWidth">
-            <el-input v-model="add_form.title" autocomplete="off" style="width: 217px;"></el-input>
+            <el-input v-model="add_form.title" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="联系人" :label-width="formLabelWidth">
-            <el-input v-model="add_form.name" autocomplete="off" style="width: 217px;"></el-input>
+            <el-input v-model="add_form.name" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="电话" :label-width="formLabelWidth">
-            <el-input v-model="add_form.phone" autocomplete="off" style="width: 217px;"></el-input>
+            <el-input v-model="add_form.phone" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="地址" :label-width="formLabelWidth">
-            <el-input v-model="add_form.address" autocomplete="off" style="width: 217px;"></el-input>
+            <el-input v-model="add_form.address" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="金额" :label-width="formLabelWidth">
-            <el-input v-model="add_form.amount" autocomplete="off" style="width: 217px;"></el-input>
+            <el-input v-model="add_form.amount" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="有效时间" :label-width="formLabelWidth">
+            <el-date-picker class="select" v-model="add_form.effectiveTime" type="datetime" placeholder="选择日期时间" default-time="12:00:00">
+            </el-date-picker>
           </el-form-item>
           <el-form-item label="图片" :label-width="formLabelWidth">
-            <!-- <el-input v-model="add_form.picture" autocomplete="off" style="width: 217px;"></el-input> -->
-            <el-upload
-              class="upload-demo"
-              action="http://127.0.0.1:8080/upload/uploadPicture"
-              :on-remove="handleRemove"
-              :on-success="uploadSuccess"
-              :file-list="fileList"
-              list-type="picture">
+            <!-- <el-input v-model="add_form.picture" autocomplete="off" ></el-input> -->
+            <el-upload class="upload-demo" action="http://127.0.0.1:8080/upload/uploadPicture" :on-remove="handleRemove"
+              :on-success="uploadSuccess" :file-list="fileList" list-type="picture">
               <el-button size="small" type="primary">点击上传</el-button>
               <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
             </el-upload>
@@ -71,7 +70,8 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="insertRecord">确 定</el-button>
+          <el-button v-if="insertType" type="primary" @click="insertRecord">确 定</el-button>
+          <el-button v-if="updateType" type="primary" @click="updateRecord">确 定</el-button>
         </div>
       </el-dialog>
     </template>
@@ -87,17 +87,20 @@
         </el-table-column>
         <el-table-column prop="phone" label="电话">
         </el-table-column>
-        <el-table-column prop="address" label="地址" width="240">
+        <el-table-column prop="address" label="地址">
         </el-table-column>
         <el-table-column prop="amount" label="金额" sortable>
         </el-table-column>
-        <el-table-column label="图片">
+        <el-table-column prop="effectiveTime" label="有效期止" width="180">
+        </el-table-column>
+        <el-table-column label="图片" width="120">
           <template slot-scope="scope">
             <el-button @click="handleClick(scope.row.picture)" type="text" size="small">查看</el-button>
-            <!-- <el-button type="text" size="small">编辑</el-button> -->
+            <el-button @click="showUpdateForm(scope.row)" type="text" size="small">编辑</el-button>
+            <i @click="deleteRecord(scope.row.id)" class="el-icon-delete"></i>
             <el-dialog title="图片" :visible.sync="dialogVisible" width="65%" :before-close="handleClose">
               <template>
-                <el-carousel :interval="4000" type="card" height="200px">
+                <el-carousel :interval="4000" type="card">
                   <el-carousel-item v-for="item in pictures" :key="item">
                     <img :src="item.picture">
                   </el-carousel-item>
@@ -111,10 +114,14 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-button-group>
-        <el-button type="primary" icon="el-icon-arrow-left" style="margin-right: 6px;">上一页</el-button>
-        <el-button type="primary">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
-      </el-button-group>
+      <template>
+        <div class="block">
+          <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="form.page"
+            :page-sizes="pageSizes" :page-size="form.pageSize" layout="total, sizes, prev, pager, next, jumper"
+            :total="total">
+          </el-pagination>
+        </div>
+      </template>
     </template>
   </div>
 </body>
