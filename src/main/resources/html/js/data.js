@@ -9,6 +9,7 @@ let vm = new Vue({
             updateType: false,
             dialogVisible: false,
             dialogFormVisible: false,
+            picDialog: false,
             pageSizes: [10, 20, 30, 40, 50],
             total: 0,
             options: [
@@ -34,6 +35,7 @@ let vm = new Vue({
             },
             fileList: [],
             pictures: [],
+            picDetali: '',
             formLabelWidth: '120px'
         }
     },
@@ -159,6 +161,11 @@ let vm = new Vue({
                 }
             });
             vis.add_form.picture = pictureUrl;
+        },
+        // 图片弹窗
+        showPic(picture) {
+            vis.picDialog = true;
+            vis.picDetali = picture;
         },
         // 新增窗
         showForm() {
