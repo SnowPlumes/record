@@ -36,7 +36,7 @@ let vm = new Vue({
             fileList: [],
             pictures: [],
             picDetali: '',
-            formLabelWidth: '120px'
+            formLabelWidth: '16%'
         }
     },
     mounted: function () {

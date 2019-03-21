@@ -23,11 +23,6 @@
 .select {
   width: 100%;
 }
-.el-icon-delete{
-  float: right;
-  margin-top: .56rem;
-  margin-right: .9rem;
-}
 .block{
   float: right;
   margin-right: 3rem;
@@ -39,4 +34,7 @@
 .picDetail{
   height: 100%;
   width: 100%;
+}
+.el-button.el-button--text.el-button--small {
+  margin-right: -.6rem;
 }
