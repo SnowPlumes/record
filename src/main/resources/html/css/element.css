@@ -13,28 +13,44 @@
 .el-carousel__item:nth-child(2n+1) {
   background-color: #d3dce6;
 }
-.edit{
-  float:right;
-}
-.el-button-group{
+
+.el-button-group {
   margin-top: .65rem;
-  float:right;
+  float: right;
 }
+
 .select {
   width: 100%;
 }
-.block{
+
+.block {
   float: right;
   margin-right: 3rem;
 }
+
 .image {
   height: 100%;
   width: 100%;
 }
-.picDetail{
+
+.picDetail {
   height: 100%;
   width: 100%;
 }
+
 .el-button.el-button--text.el-button--small {
   margin-right: -.6rem;
+}
+
+.el-form-item .el-form-item__content {
+  display: flex;
+}
+
+.el-form-item .el-form-item__content button {
+  margin-right: 3rem;
+}
+
+.el-row {
+  margin-top: 1.2rem;
+  margin-bottom: .2rem;
 }
