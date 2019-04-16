@@ -72,7 +72,7 @@ let vm = new Vue({
             vis.dialogVisible = true;
             picture.split(',').forEach(element => {
                 if (element != '') {
-                    let pic = { "picture": '../static/images/upload' + element};
+                    let pic = { "picture": '../static/images/upload' + element };
                     vis.pictures.push(pic);
                 }
             });
