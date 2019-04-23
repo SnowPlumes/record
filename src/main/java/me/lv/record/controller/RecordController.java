@@ -4,7 +4,6 @@ import me.lv.record.entity.dto.InsertRecodeDTO;
 import me.lv.record.entity.dto.JsonResponse;
 import me.lv.record.entity.dto.SearchDTO;
 import me.lv.record.entity.dto.UpdateRecordDTO;
-import me.lv.record.exception.ServiceException;
 import me.lv.record.service.AreaService;
 import me.lv.record.service.RecordService;
 import org.slf4j.Logger;
@@ -45,12 +44,8 @@ public class RecordController {
 
     @PostMapping("insertRecord")
     public JsonResponse insertRecord(@RequestBody InsertRecodeDTO recordDTO) {
-        try {
-            recordService.insertRecord(recordDTO);
-            return JsonResponse.success();
-        } catch (ServiceException e) {
-            return JsonResponse.fail(e.getMessage());
-        }
+        recordService.insertRecord(recordDTO);
+        return JsonResponse.success();
     }
 
     @DeleteMapping("deleteRecord")
